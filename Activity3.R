@@ -130,22 +130,19 @@ p2 <- ggplot(World_temp_anomalies, aes(x = Year, y = anomlies)) +
 grid.arrange(p1, p2, ncol = 2)
 
 # Homework question 3
-# Website link of our world in data: https://ourworldindata.org/grapher/global-precipitation-anomaly
 # Downloaded data related to global precipitation anomaly
 precipitation <- read.csv("/cloud/project/activity03/global-precipitation-anomaly.csv")
 
 ggplot(precipitation, aes(x = Year, y = Global.precipitation.anomaly)) +
   geom_line(color = "#FA5F55", size = 1) +  
   geom_hline(yintercept = 0, linetype = "solid", color = "gray") +  
-  labs(title = "Global precipitation anomaly",
+  labs(title = "Global Precipitation Anomalies Relative to 1901-2000 Average",
        x = "Year",
-       y = "Anomaly in inches",   
+       y = "Precipitation Anomalies (in)",   
        caption = "Source: Our World in Data") + 
-  scale_x_continuous(limits = c(1901, 2021), breaks = c(1901, 1920, 1940, 1960, 1980, 2000, 2021), expand = c(0, 0)) +  # Adjusted expand argument
+  scale_x_continuous(limits = c(1901, 2021), breaks = c(1901, 1920, 1940, 1960, 1980, 2000, 2021), expand = c(0, 0)) +  
   theme_minimal() +
   theme(
     plot.title = element_text(hjust = 0.5),  
     axis.text.x = element_text(angle = 45, hjust = 1))
-
-land_use <- read.csv("/cloud/project/activity03/land-use-over-the-long-term.csv")
 
