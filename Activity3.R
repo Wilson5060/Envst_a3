@@ -55,9 +55,7 @@ legend("topleft", legend = c("Northern Hemisphere", "Southern Hemisphere"), col 
 
 ggplot(climate, aes(x = Day, y = temperature_anomaly, color = Entity)) +
   geom_line() +
-  labs(title = "Temperature Anomalies over Time by Entity",
-       x = "Date", 
-       y = "Temperature Anomaly") +
+  labs(title = "Temperature Anomalies over Time by Entity", x = "Date", y = "Temperature Anomaly") +
   theme_minimal()
 
 # Classwork Prompt 2
@@ -87,9 +85,7 @@ ggplot(datCO2[datCO2$Entity %in% c("United Kingdom", "France"), ], aes(x = Year,
        caption = "Source: Our World in Data") + 
   scale_x_continuous(breaks = seq(min(datCO2$Year), max(datCO2$Year), by = 20)) +  
   theme_minimal() +
-  theme(
-    plot.title = element_text(hjust = 0.5),  
-    axis.text.x = element_text(angle = 45, hjust = 1))
+  theme(plot.title = element_text(hjust = 0.5),  axis.text.x = element_text(angle = 45, hjust = 1))
 
 
 # Homework question 2
@@ -103,9 +99,7 @@ p1 <- ggplot(datCO2[datCO2$Entity == 'World', ], aes(x = Year, y = CO2 / 1e9)) +
   scale_x_continuous(breaks = seq(min(datCO2$Year), max(datCO2$Year), by = 20)) +  
   scale_y_continuous(limits = c(0, 40)) +  
   theme_minimal() +
-  theme(
-    plot.title = element_text(hjust = 0.5),  
-    axis.text.x = element_text(angle = 45, hjust = 1))
+  theme(plot.title = element_text(hjust = 0.5),  axis.text.x = element_text(angle = 45, hjust = 1))
 
 # Plot world air temperature anomalies
 World_temp_anomalies <- climate %>%
@@ -123,26 +117,29 @@ p2 <- ggplot(World_temp_anomalies, aes(x = Year, y = anomlies)) +
   scale_x_continuous(breaks = seq(min(datCO2$Year), max(datCO2$Year), by = 20)) +  
   scale_y_continuous(limits= c(-10,15)) +
   theme_minimal()+
-  theme(
-    plot.title = element_text(hjust = 0.5),  
-    axis.text.x = element_text(angle = 45, hjust = 1))
+  theme(plot.title = element_text(hjust = 0.5),  axis.text.x = element_text(angle = 45, hjust = 1))
 
 grid.arrange(p1, p2, ncol = 2)
 
 # Homework question 3
 # Downloaded data related to global precipitation anomaly
+# Website link of our world in data: https://ourworldindata.org/grapher/global-precipitation-anomaly
 precipitation <- read.csv("/cloud/project/activity03/global-precipitation-anomaly.csv")
 
-ggplot(precipitation, aes(x = Year, y = Global.precipitation.anomaly)) +
-  geom_line(color = "#FA5F55", size = 1) +  
-  geom_hline(yintercept = 0, linetype = "solid", color = "gray") +  
-  labs(title = "Global Precipitation Anomalies Relative to 1901-2000 Average",
-       x = "Year",
-       y = "Precipitation Anomalies (in)",   
-       caption = "Source: Our World in Data") + 
-  scale_x_continuous(limits = c(1901, 2021), breaks = c(1901, 1920, 1940, 1960, 1980, 2000, 2021), expand = c(0, 0)) +  
-  theme_minimal() +
-  theme(
-    plot.title = element_text(hjust = 0.5),  
-    axis.text.x = element_text(angle = 45, hjust = 1))
 
+ggplot(precipitation, aes(x = Year)) +
+  geom_line(aes(y = Global.precipitation.anomaly), color = "red", size = 1) +  
+  geom_smooth(aes(y = Global.precipitation.anomaly), color = "blue", 
+              method = "loess", linetype = "dotted", span = 0.2, size = 0.8, se = FALSE) +
+  geom_hline(yintercept = 0, linetype = "solid", color = "gray") +  
+  labs(title = "Global Precipitation Anomalies Relative to 1901-2000 Average", 
+       x = "Year", y = "Precipitation Anomalies (in)",  caption = "Source: Our World in Data",) + 
+  scale_x_continuous(limits = c(1901, 2021), 
+                     breaks = c(1901, 1920, 1940, 1960, 1980, 2000, 2021), 
+                     expand = c(0, 0)) +    
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5),  axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+# Homework Question 4
+# https://github.com/Wilson5060/Envst_a3/tree/master
